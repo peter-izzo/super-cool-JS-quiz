@@ -1,0 +1,10 @@
+body{
+    background-color: #595858;
+    background-image:  linear-gradient(30deg, #44baf7 12%, transparent 12.5%, transparent 87%, #44baf7 87.5%, #44baf7), linear-gradient(150deg, #44baf7 12%, transparent 12.5%, transparent 87%, #44baf7 87.5%, #44baf7), linear-gradient(30deg, #44baf7 12%, transparent 12.5%, transparent 87%, #44baf7 87.5%, #44baf7), linear-gradient(150deg, #44baf7 12%, transparent 12.5%, transparent 87%, #44baf7 87.5%, #44baf7), linear-gradient(60deg, #44baf777 25%, transparent 25.5%, transparent 75%, #44baf777 75%, #44baf777), linear-gradient(60deg, #44baf777 25%, transparent 25.5%, transparent 75%, #44baf777 75%, #44baf777);
+    background-size: 40px 70px;
+    background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+}
+
+.title{
+    background: rgba(255,255,255,.7)
+}
