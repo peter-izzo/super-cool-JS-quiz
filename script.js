@@ -1,9 +1,10 @@
 var timer = document.querySelector(".timer");
 
-var secondsLeft = 5;
+var timeLeft = 15;
+var score = 0;
+var currentQuestion = {};
 
 //The Questions
-
 var theQuestions = [
     {
         question: "Who Invented Javascript?",
@@ -28,19 +29,60 @@ var theQuestions = [
     },
 ]
 
-function startQuiz(){
+function handleWrongAnswer() {
 
 };
+
+//This function starts the quiz mechanics
+function startQuiz(){
+    $(".start-quiz").addClass("d-none");
+    // var output = [];
+    // var answers = [];
+    score = 0;
+    questionCounter = 0;
+    //save score to local storage for high score
+    localStorage.setItem('playerScore', score)
+
+
+
+
+/*
+    theQuestions.forEach(
+        function (currentQuestion, questionNumber) {
+            var answers = [];
+
+            for (letter in currentQuestion.answers) {
+                answers.push(
+                    `
+                <button class="btn btn-primary answers>${letter}: ${currentQuestion.answers[letter]}
+                </button>
+                `
+                );
+            }
+
+            output.push(
+                `<div class="new-question"><h2> ${currentQuestion.question}</h2>
+            </div>
+            <div class="new-answer"> ${answers.join('')} </div>
+            `
+            );
+        }
+    );
+*/
+    $(".question").append(output.join(''));
+
+};
+
 function showHighScore(){
 
 };
 
 function setTime() {
     var timerInterval = setInterval(function() {
-      secondsLeft--;
-      $(".timer").text(secondsLeft + " seconds");
+      timeLeft--;
+      $(".timer").text(timeLeft + " seconds");
   
-      if(secondsLeft === 0) {
+      if(timeLeft === 0) {
         clearInterval(timerInterval);
         quizOver();
       }
@@ -49,9 +91,22 @@ function setTime() {
 }
 
 function quizOver() {
-    $(".question").text("Time's up! Your Quiz has come to an end.");
+    $(".question").text("Your Quiz has finished.");
     $(".high-score").removeClass("d-none");
     //$(".high-score").addClass("d-block");
 }
 
-setTime();
+var currentQuestion = theQuestions[0];
+
+$("#next").on("click", function() {
+    currentQuestion = currentQuestion + 1;
+    if (currentQuestion === (theQuestions.length -1)) {
+        $("#next").addClass("d-none");
+    }
+
+})
+
+$(".start-quiz").on("click", startQuiz);
+$(".start-quiz").on("click", setTime);
+
+//setTime();
