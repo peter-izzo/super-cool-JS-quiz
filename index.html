@@ -32,8 +32,13 @@
                 <h1>left.</h1>
             </div>
 
+
             
         </section>
+
+        <!--This button will start the quiz-->
+        <button id="start-quiz" class="btn btn-primary btn-lg start-quiz">START QUIZ</button>
+
 
         <section class="row mt-4 question-container">
 
@@ -41,10 +46,16 @@
 
             <!--Quiz Questions-->
 
-            <div class="question col-lg-8 col-md-8 bg-white">
-                <p>Question goes here!!</p>
-                <button class="btn btn-info btn-lg start-quiz">START QUIZ</button>
+            <div class="question d-none shadow-lg p-4 col-lg-8 col-md-8 bg-white">
+                <div id="current"><h3>Question goes here!!</h3></div>
+                <div id="answers" class="row justify-content-around">
+                    <button class="btn btn-lg btn-primary my-2">Answer 1</button>
+                    <button class="btn btn-lg btn-primary my-2">Answer 2</button>
+                    <button class="btn btn-lg btn-primary my-2">Answer 3</button>
+                    <button class="btn btn-lg btn-primary my-2">Answer 4</button>
+                </div>
             </div>
+            
 
             <div class="col-sm-12 col-md-3 col-lg-4"></div>
 
@@ -54,7 +65,7 @@
 
             <!--Button to advance questions-->
 
-            <button id="next" class="btn btn-info btn-lg mt-4 mb-4">Next <i class="fas fa-arrow-circle-right"></i></button>
+            <button id="next" class="btn btn-primary btn-lg mt-4 mb-4">Next <i class="fas fa-arrow-circle-right"></i></button>
 
         </section>
 
@@ -69,7 +80,7 @@
                 <div class="high-score d-none col-lg-8 col-md-8 bg-white">
                     <p>Enter your name and save your score</p>
                     <input type="text">
-                    <button type="submit" class="btn btn-info btn-lg">Submit <i class="fas fa-check-circle"></i> </button>
+                    <button id="submit" type="submit" class="btn btn-info btn-lg">Submit <i class="fas fa-check-circle"></i> </button>
                 </div>
 
                 <div class="col-sm-12 col-md-3 col-lg-4"></div>

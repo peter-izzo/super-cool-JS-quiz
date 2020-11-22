@@ -1,91 +1,130 @@
+//Global Variables
 var timer = document.querySelector(".timer");
-
+const answers = document.getElementById("answers");
 var timeLeft = 15;
 var score = 0;
-var currentQuestion = {};
-
-//The Questions
-var theQuestions = [
+let randomizeQuestions;
+let currentQuestionIndex;
+ 
+//The Quiz Questions
+var questions = [
     {
         question: "Who Invented Javascript?",
-        answers: {
-            a: "Earl Pottajowski",
-            b: "Sarah Connor",
-            c: "Reince Priebus",
-            d: "Brendan Eich"
+        answers: [
+            {text: 'a: Earl Pottajowski', correct: false},
+            {text: 'b: Sarah Connor', correct: false},
+            {text: 'c: Reince Priebus', correct: false},
+            {text: 'd: Brendan Eich', correct: true}
 
-        },
-        correctAnswer: "d"
+        ]
     },
     {
         question: "In the 1990 film Total Recall, what was the main character's name?",
-        answers: {
-            a: "Casey Ryback",
-            b: "Douglas Quaid",
-            c: "John Matrix",
-            d: "Harry Tasker"
-        },
-        correctAnswer: "b"
+        answers: [
+            {text: 'a: Casey Ryback', correct: false},
+            {text: 'b: Douglas Quaid', correct: true},
+            {text: 'c: John Matrix', correct: false},
+            {text: 'd: Harry Tasker', correct: false}
+        ]
     },
 ]
 
-function handleWrongAnswer() {
+/**
+ *   ////////// Main Functions \\\\\\\
+ */
 
+//Handles wrong answers and decreases time
+function handleWrongAnswer() {
+    timeLeft = timeLeft - 1;
 };
 
-//This function starts the quiz mechanics
+//Starts the Quiz game
 function startQuiz(){
+    setTime();
     $(".start-quiz").addClass("d-none");
-    // var output = [];
-    // var answers = [];
+    $(".question").removeClass("d-none");
+    randomizeQuestions = questions.sort(() => Math.random() - .5);
+    currentQuestionIndex = 0;
+    nextQuestion();
     score = 0;
-    questionCounter = 0;
+    
     //save score to local storage for high score
     localStorage.setItem('playerScore', score)
 
-
-
-
-/*
-    theQuestions.forEach(
-        function (currentQuestion, questionNumber) {
-            var answers = [];
-
-            for (letter in currentQuestion.answers) {
-                answers.push(
-                    `
-                <button class="btn btn-primary answers>${letter}: ${currentQuestion.answers[letter]}
-                </button>
-                `
-                );
-            }
-
-            output.push(
-                `<div class="new-question"><h2> ${currentQuestion.question}</h2>
-            </div>
-            <div class="new-answer"> ${answers.join('')} </div>
-            `
-            );
-        }
-    );
-*/
-    $(".question").append(output.join(''));
-
 };
+
+function nextQuestion() {
+    resetState();
+    displayQuestion(randomizeQuestions[currentQuestionIndex])
+};
+
+function displayQuestion(question){
+    $("#current").html(`<h3>${question.question}</h3>`);
+    question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add('btn', 'btn-lg', 'btn-primary', 'my-2');
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener('click', selectAnswer);
+        answers.appendChild(button);
+    })
+}
+
+function resetState() {
+    $("#next").addClass("d-none");
+    while(answers.firstChild) {
+        answers.removeChild(answers.firstChild)
+    }
+}
+
+function selectAnswer(e) {
+    const selectedButton = e.target;
+    const correct = selectedButton.dataset.correct;
+    Array.from(answers.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    });
+    if (randomizeQuestions.length > currentQuestionIndex + 1) {
+        $("#next").removeClass('d-none');
+    } else {
+        quizOver();
+    }
+};
+
+function setStatusClass(e, correct) {
+    clearStatusClass(e);
+    if (correct) {
+        e.classList.add('btn-success');
+        score++;
+        console.log(score);
+    } else{
+        e.classList.add('btn-danger');
+        handleWrongAnswer();
+    }
+}
+
+function clearStatusClass(e) {
+    e.classList.remove('btn-correct');
+    e.classList.remove('btn-danger');
+}
 
 function showHighScore(){
 
 };
+
 
 function setTime() {
     var timerInterval = setInterval(function() {
       timeLeft--;
       $(".timer").text(timeLeft + " seconds");
   
-      if(timeLeft === 0) {
+      if(timeLeft === 0 || timeLeft < 0) {
         clearInterval(timerInterval);
         quizOver();
       }
+      console.log(timeLeft);
+
   
     }, 1000);
 }
@@ -96,10 +135,11 @@ function quizOver() {
     //$(".high-score").addClass("d-block");
 }
 
-var currentQuestion = theQuestions[0];
+// var currentQuestion = theQuestions[0];
 
 $("#next").on("click", function() {
-    currentQuestion = currentQuestion + 1;
+    currentQuestionIndex = currentQuestionIndex + 1;
+    nextQuestion();
     if (currentQuestion === (theQuestions.length -1)) {
         $("#next").addClass("d-none");
     }
@@ -107,6 +147,5 @@ $("#next").on("click", function() {
 })
 
 $(".start-quiz").on("click", startQuiz);
-$(".start-quiz").on("click", setTime);
 
 //setTime();

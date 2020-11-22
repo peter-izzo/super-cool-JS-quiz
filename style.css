@@ -8,3 +8,8 @@ body{
 .title{
     background: rgba(255,255,255,.7)
 }
+
+#answers{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+}
