@@ -5,6 +5,11 @@ var timeLeft = 15;
 var score = 0;
 let randomizeQuestions;
 let currentQuestionIndex;
+
+// var storeInitials = JSON.parse(localStorage.getItem("Initials"));
+const highScore = JSON.parse(localStorage.getItem("Score")) || [];
+const highScoreList = document.getElementById('highScoresList');
+
  
 //The Quiz Questions
 var questions = [
@@ -77,7 +82,7 @@ function startQuiz(){
     nextQuestion();
     
     //save score to local storage for high score
-    localStorage.setItem('playerScore', score)
+    // localStorage.setItem('playerScore', score)
 
 };
 
@@ -143,9 +148,31 @@ function clearStatusClass(e) {
 }
 
 //Save High Score to local Storage
-function saveHighScore(){
+function saveHighScores(e){
+    e.preventDefault();
 
+    const listOfScores = {
+        points: score,
+        name: $("#hs-name").val()
+    };
+
+    highScore.push(listOfScores);
+
+    highScore.sort( function (a, b) {
+            return b.score - a.score;
+        });
+
+    highScore.splice(5);
+
+    localStorage.setItem('highScores', JSON.stringify(highScore));
+
+
+
+    // var storeInitials = JSON.parse(localStorage.getItem("Initials"));
+    // var highScore = JSON.parse(localStorage.getItem("Score"));
 };
+
+
 
 // timer for quiz
 function setTime() {
@@ -215,5 +242,8 @@ $("#submit").click(function (event) {
         localStorage.setItem("Initials", highScoreName);
         localStorage.setItem("Score", score);
     }
+
+    // highScoreList.innerHTML = highScore.map(listOfScores => {
+    //     return `<li class="high-score">${listOfScores.name} - ${listOfScores.score}</li>`}).join('');
 })
 
