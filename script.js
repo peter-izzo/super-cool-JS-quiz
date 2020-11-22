@@ -97,6 +97,7 @@ function setStatusClass(e, correct) {
     if (correct) {
         e.classList.add('btn-success');
         score++;
+        $(".score").text(score);
         console.log(score);
     } else{
         e.classList.add('btn-danger');
@@ -133,6 +134,8 @@ function quizOver() {
     $(".question").text("Your Quiz has finished.");
     $(".high-score").removeClass("d-none");
     //$(".high-score").addClass("d-block");
+    timeLeft = 0;
+    $(".timer").text("0");
 }
 
 // var currentQuestion = theQuestions[0];
