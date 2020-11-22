@@ -57,7 +57,7 @@
             </div>
             
 
-            <div class="col-sm-12 col-md-12 col-lg-12 bg-white shadow-lg my-2">Your score is: <span class="score"></span></div>
+            <div class="col-sm-12 col-md-12 col-lg-12 bg-white shadow-lg my-2">Your score is: <span class="score h4"></span></div>
 
         </section>
 
@@ -78,13 +78,14 @@
                 <div class="col-sm-12 col-md-2 col-lg-2"></div>
 
                 <div class="high-score d-none col-lg-8 col-md-8 bg-white">
-                    <p>Enter your name and save your score</p>
-                    <input type="text">
+                    <label for="name">Enter your name and press submit to save your score</label>
+                    <input type="text" name="name" id="hs-name" placeholder="ABC">
+                    <div class="msg h4"></div>
                     <button id="submit" type="submit" class="btn btn-info btn-lg">Submit <i class="fas fa-check-circle"></i> </button>
                 </div>
 
                 <div class="col col-lg-8 col-md-8">
-                    <button id="restart" class="d-none btn btn-info btn-lg">Restart</button>
+                    <button id="restart" class="d-none btn btn-warning btn-lg">Restart</button>
                 </div>
 
             </div>

@@ -27,6 +27,33 @@ var questions = [
             {text: 'd: Harry Tasker', correct: false}
         ]
     },
+    {
+        question: "Which of the following ISN'T a Javascript data-type",
+        answers: [
+            {text: 'a: Number', correct: false},
+            {text: 'b: String', correct: false},
+            {text: 'c: Float', correct: false},
+            {text: 'd: Miniture', correct: true}
+        ]
+    },
+    {
+        question: "What is Homer Simpson's middle name?",
+        answers: [
+            {text: 'a: Jay', correct: true},
+            {text: 'b: James', correct: false},
+            {text: 'c: Jordan', correct: false},
+            {text: 'd: Jared', correct: false}
+        ]
+    },
+    {
+        question: "In the hit 1990 sci-fi movie 'Total Recall', What was the main character's career in the beginning?",
+        answers: [
+            {text: 'a: Spy', correct: false},
+            {text: 'b: Plumber', correct: false},
+            {text: 'c: Construction Worker', correct: true},
+            {text: 'd: Electrician', correct: false}
+        ]
+    }
 ]
 
 /**
@@ -146,6 +173,15 @@ function quizOver() {
     $(".timer").text("0");
 }
 
+function displayMessage(type, message) {
+    $(".msg").html(message);
+    $(".msg").attr("class", type);
+}
+
+/**
+ *  /////// EVENT LISTENERS \\\\\\\\
+ */
+
 // var currentQuestion = theQuestions[0];
 
 $("#next").on("click", function() {
@@ -160,7 +196,24 @@ $("#next").on("click", function() {
 //Start quiz button clicked? START QUIZ
 $(".start-quiz").on("click", startQuiz);
 
-//Restart button clicked? START QUIZ
-$("#restart").on("click", startQuiz);
+//Restart button clicked? RESTART QUIZ
+$("#restart").click(function() {
+    location.reload();
+});
 
+//Save scores to leaderboard
+$("#submit").click(function (event) {
+    event.preventDefault();
+
+    var highScoreName = $("#hs-name").val();
+
+    if (highScoreName === "") {
+        displayMessage("text-danger", "Initials cannot be blank");
+    } else{
+        displayMessage("success", "High Score Saved!");
+
+        localStorage.setItem("Initials", highScoreName);
+        localStorage.setItem("Score", score);
+    }
+})
 
