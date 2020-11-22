@@ -99,7 +99,7 @@ function handleWrongAnswer() {
 
 //Starts the Quiz game
 function startQuiz(){
-    timeLeft = 15;
+    timeLeft = 120;
     score = 0;
     setTime();
     $(".start-quiz").addClass("d-none");
