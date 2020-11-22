@@ -1,5 +1,5 @@
 //Global Variables
-var timer = document.querySelector(".timer");
+const timer = document.querySelector(".timer");
 const answers = document.getElementById("answers");
 var timeLeft = 15;
 var score = 0;
@@ -40,13 +40,14 @@ function handleWrongAnswer() {
 
 //Starts the Quiz game
 function startQuiz(){
+    timeLeft = 15;
+    score = 0;
     setTime();
     $(".start-quiz").addClass("d-none");
     $(".question").removeClass("d-none");
     randomizeQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
     nextQuestion();
-    score = 0;
     
     //save score to local storage for high score
     localStorage.setItem('playerScore', score)
@@ -72,6 +73,7 @@ function displayQuestion(question){
     })
 }
 
+//makes next button disappear until question is answered
 function resetState() {
     $("#next").addClass("d-none");
     while(answers.firstChild) {
@@ -79,6 +81,7 @@ function resetState() {
     }
 }
 
+//logic for correct anwsers
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct;
@@ -92,6 +95,7 @@ function selectAnswer(e) {
     }
 };
 
+// handling of correct-incorrect answers
 function setStatusClass(e, correct) {
     clearStatusClass(e);
     if (correct) {
@@ -105,16 +109,18 @@ function setStatusClass(e, correct) {
     }
 }
 
+//clears button colors when new questions appear
 function clearStatusClass(e) {
     e.classList.remove('btn-correct');
     e.classList.remove('btn-danger');
 }
 
-function showHighScore(){
+//Save High Score to local Storage
+function saveHighScore(){
 
 };
 
-
+// timer for quiz
 function setTime() {
     var timerInterval = setInterval(function() {
       timeLeft--;
@@ -130,9 +136,11 @@ function setTime() {
     }, 1000);
 }
 
+//ends quiz
 function quizOver() {
     $(".question").text("Your Quiz has finished.");
     $(".high-score").removeClass("d-none");
+    $("#restart").removeClass("d-none");
     //$(".high-score").addClass("d-block");
     timeLeft = 0;
     $(".timer").text("0");
@@ -149,6 +157,10 @@ $("#next").on("click", function() {
 
 })
 
+//Start quiz button clicked? START QUIZ
 $(".start-quiz").on("click", startQuiz);
 
-//setTime();
+//Restart button clicked? START QUIZ
+$("#restart").on("click", startQuiz);
+
+
