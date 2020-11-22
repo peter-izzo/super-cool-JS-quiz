@@ -1,7 +1,7 @@
 //Global Variables
 const timer = document.querySelector(".timer");
 const answers = document.getElementById("answers");
-var timeLeft = 15;
+var timeLeft = 120;
 var score = 0;
 let randomizeQuestions;
 let currentQuestionIndex;
@@ -57,6 +57,33 @@ var questions = [
             {text: 'b: Plumber', correct: false},
             {text: 'c: Construction Worker', correct: true},
             {text: 'd: Electrician', correct: false}
+        ]
+    },
+    {
+        question: "Where did Rocky's girlfriend work in Rocky I",
+        answers: [
+            {text: 'a: Flower Shop', correct: false},
+            {text: 'b: Ice Cream Shop', correct: false},
+            {text: 'c: Pet Shop', correct: true},
+            {text: 'd: Movie Theatre', correct: false}
+        ]
+    },
+    {
+        question: "What is the best programming language?",
+        answers: [
+            {text: 'a: Javascript', correct: true},
+            {text: 'b: Squark', correct: false},
+            {text: 'c: P-Nutz', correct: false},
+            {text: 'd: Javascript', correct: true}
+        ]
+    },
+    {
+        question: "Who was NOT one of the original creators of Doom",
+        answers: [
+            {text: 'a: John Romero', correct: false},
+            {text: 'b: John Carmack ', correct: false},
+            {text: 'c: Dave Taylor', correct: false},
+            {text: 'd: Cliff Bleszinski', correct: true}
         ]
     }
 ]
